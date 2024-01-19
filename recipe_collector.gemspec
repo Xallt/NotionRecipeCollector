@@ -8,4 +8,5 @@ Gem::Specification.new do |s|
     s.summary     = 'Notion Recipe Collector'
     s.description = 'A simple recipe collector - a module for collecting recipes from a Notion database'
     s.license     = 'MIT'
+    s.files      = ['lib/recipe_collector.rb', 'print_recipes.py']
 end
