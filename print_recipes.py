@@ -10,14 +10,21 @@ COOKING_ID = "013eb25bb1444da6a8a842fba94b3f0e"
 
 
 def get_db_data():
-    db_data = requests.post(
+    response = requests.post(
         f"https://api.notion.com/v1/databases/{COOKING_ID}/query",
         headers={
             "Authorization": f"Bearer {NOTION_API_KEY}",
             "Notion-Version": "2022-06-28",
             "Content-Type": "application/json",
         },
-    ).json()
+    )
+    if response.status_code != 200:
+        raise Exception(
+            f"Failed to get database data: {response.status_code=}, {response.text=}"
+        )
+    db_data = response.json()
+    if "results" not in db_data:
+        raise Exception(f"No results found in {db_data}, {response.text=}")
     return db_data
 
 
